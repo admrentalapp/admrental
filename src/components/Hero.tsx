@@ -76,16 +76,6 @@ export default function Hero({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
           {/* Coluna esquerda - texto e botões; no mobile fica acima da imagem (order-1) */}
           <div className="text-left order-1">
-            <motion.span
-              custom={0}
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-              className="inline-block px-4 py-2 mb-4 rounded-full bg-adm-red/20 text-adm-red text-xs font-medium border border-adm-red/30 backdrop-blur-sm"
-            >
-              Líder em locação de equipamentos
-            </motion.span>
-
             <motion.h1
               custom={1}
               variants={fadeUp}
@@ -136,7 +126,7 @@ export default function Hero({
                 <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
                   <Link
                     href={ctaHref}
-                    className="inline-flex items-center gap-2 px-6 py-3 text-sm bg-adm-red hover:bg-adm-red-dark text-white font-semibold rounded-lg transition-colors"
+                    className="btn-shadow inline-flex items-center gap-2 px-6 py-3 text-sm bg-adm-red hover:bg-adm-red-dark text-white font-semibold rounded-lg transition-all duration-300"
                   >
                     {ctaText}
                     <span>→</span>
@@ -145,7 +135,7 @@ export default function Hero({
                 <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
                   <Link
                     href="/contato"
-                    className="btn-accent-outline inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold rounded-lg"
+                    className="btn-accent-outline btn-shadow-outline inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold rounded-lg"
                   >
                     Solicitar Orçamento
                   </Link>

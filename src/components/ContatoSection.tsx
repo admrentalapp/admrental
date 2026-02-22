@@ -217,7 +217,7 @@ export default function ContatoSection() {
                 disabled={status === "loading"}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
-                className="w-full py-4 bg-adm-red hover:bg-adm-red-dark text-white font-semibold rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-adm-red/20"
+                className="btn-shadow w-full py-4 bg-adm-red hover:bg-adm-red-dark text-white font-semibold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none"
               >
                 {status === "loading" ? "Enviando..." : "Enviar mensagem"}
               </motion.button>

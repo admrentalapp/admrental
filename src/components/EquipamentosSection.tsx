@@ -164,7 +164,7 @@ export default function EquipamentosSection({ imagemLinhaIcamento, imagemLinhaCa
             <motion.span
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
-              className="inline-flex items-center gap-2 px-8 py-4 border-2 border-adm-red/50 text-adm-red hover:bg-adm-red/10 font-semibold rounded-xl transition-colors"
+              className="btn-shadow-outline inline-flex items-center gap-2 px-8 py-4 border-2 border-adm-red/50 text-adm-red hover:bg-adm-red/10 font-semibold rounded-xl transition-all duration-300"
             >
               Ver todos os equipamentos
               <span>→</span>

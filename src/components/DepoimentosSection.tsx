@@ -61,7 +61,7 @@ export default function DepoimentosSection() {
           transition={{ delay: 0.2 }}
           className="relative"
         >
-          <div className="relative min-h-[200px] overflow-hidden">
+          <div className="relative min-h-[260px] sm:min-h-[300px] overflow-hidden">
             {depoimentos.map((dep, i) => (
               <motion.div
                 key={dep.id}
@@ -74,7 +74,7 @@ export default function DepoimentosSection() {
                 transition={{ duration: 0.4 }}
                 className="absolute inset-0 flex flex-col items-center justify-center text-center px-4"
               >
-                <blockquote className="text-xl sm:text-2xl text-text-muted-strong leading-relaxed max-w-3xl mx-auto">
+                <blockquote className="text-base sm:text-lg md:text-xl text-text-muted-strong leading-relaxed max-w-3xl mx-auto">
                   &ldquo;{dep.texto}&rdquo;
                 </blockquote>
                 <div className="mt-8">

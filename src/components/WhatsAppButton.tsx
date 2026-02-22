@@ -22,7 +22,7 @@ export default function WhatsAppButton() {
         onClick={handleClick}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
-        className="relative w-14 h-14 sm:w-16 sm:h-16 bg-[#25D366] hover:bg-[#20BD5A] text-white rounded-full shadow-lg shadow-[#25D366]/30 flex items-center justify-center"
+        className="relative w-14 h-14 sm:w-16 sm:h-16 bg-[#25D366] hover:bg-[#20BD5A] text-white rounded-full flex items-center justify-center shadow-[0_4px_14px_rgba(37,211,102,0.4),0_2px_6px_rgba(0,0,0,0.2)] hover:shadow-[0_6px_20px_rgba(37,211,102,0.5),0_4px_10px_rgba(0,0,0,0.25)] transition-shadow duration-300"
         aria-label="Contato via WhatsApp"
       >
         <motion.span

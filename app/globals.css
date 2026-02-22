@@ -77,6 +77,22 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Sombra moderna para botões primários (vermelho) */
+.btn-shadow {
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.35), 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+.btn-shadow:hover {
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4), 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Sombra para botões outline / secundários */
+.btn-shadow-outline {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+.btn-shadow-outline:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
 /* Botão/link de destaque (amarelo no escuro, vermelho moderno no claro) */
 .btn-accent-outline {
   transition: all 0.25s ease;
@@ -84,13 +100,13 @@
   border-color: var(--accent);
   color: var(--accent);
   background: transparent;
-  box-shadow: var(--accent-shadow);
+  box-shadow: var(--accent-shadow), 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 .btn-accent-outline:hover {
   background: var(--accent-soft);
   border-color: var(--accent-hover);
   color: var(--accent-hover);
-  box-shadow: var(--accent-shadow-hover);
+  box-shadow: var(--accent-shadow-hover), 0 4px 14px rgba(0, 0, 0, 0.15);
   transform: translateY(-2px);
 }
 [data-theme="light"] .btn-accent-outline {

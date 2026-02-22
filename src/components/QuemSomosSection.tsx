@@ -51,7 +51,7 @@ export default function QuemSomosSection({ imagemUrl }: QuemSomosSectionProps) {
             >
               <Link
                 href="/contato"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-adm-red hover:bg-adm-red-dark text-white font-semibold rounded-xl transition-colors"
+                className="btn-shadow inline-flex items-center gap-2 px-6 py-3 bg-adm-red hover:bg-adm-red-dark text-white font-semibold rounded-xl transition-all duration-300"
               >
                 Saiba mais
                 <span>→</span>

@@ -219,7 +219,7 @@ export default async function EquipamentoPage({ params }: PageProps) {
               <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3">
                 <Link
                   href="/#contato"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold bg-adm-red hover:bg-adm-red-dark text-white rounded-lg transition-colors"
+                  className="btn-shadow inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold bg-adm-red hover:bg-adm-red-dark text-white rounded-lg transition-all duration-300"
                 >
                   Solicitar orçamento
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -230,7 +230,7 @@ export default async function EquipamentoPage({ params }: PageProps) {
                   href={`https://wa.me/5511999999999?text=${encodeURIComponent(`Olá! Gostaria de mais informações sobre o equipamento: ${eq.nome}.`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold bg-green-600 hover:bg-green-700 text-white rounded-lg transition-all duration-300 shadow-[0_4px_14px_rgba(34,197,94,0.35),0_2px_6px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_20px_rgba(34,197,94,0.4),0_4px_10px_rgba(0,0,0,0.2)]"
                 >
                   Falar com especialista
                 </a>

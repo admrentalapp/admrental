@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import * as ReactDOM from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
+import { useTheme } from "@/src/contexts/ThemeContext";
 
 const navLinks = [
   { href: "/", label: "Início" },
@@ -24,9 +26,9 @@ const navLinks = [
 ];
 
 const panelVariants = {
-  hidden: { x: "100%", transition: { duration: 0.4 } },
-  visible: { x: 0, transition: { duration: 0.45 } },
-  exit: { x: "100%", transition: { duration: 0.35 } },
+  hidden: { x: "-100%", transition: { duration: 0.3 } },
+  visible: { x: 0, transition: { duration: 0.35 } },
+  exit: { x: "-100%", transition: { duration: 0.25 } },
 };
 
 const listVariants = {
@@ -48,9 +50,13 @@ const itemVariants = {
 };
 
 export default function Navbar() {
+  const { isLight } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -75,16 +81,42 @@ export default function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-adm-gray-light/95 backdrop-blur-xl border-b border-white/10 ${
-        scrolled ? "shadow-lg shadow-black/20" : ""
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-adm-gray-light/95 backdrop-blur-xl border-b border-white/10 shadow-[0_4px_12px_rgba(0,0,0,0.25)] ${
+        scrolled ? "shadow-[0_6px_20px_rgba(0,0,0,0.35)]" : ""
       }`}
-      style={{
-        boxShadow: scrolled ? "0 4px 30px -4px rgba(185, 28, 28, 0.15)" : undefined,
-      }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-20">
-          <Link href="/" className="flex items-center gap-2 group">
+        <div className="flex items-center justify-between h-16 sm:h-20 gap-2">
+          {/* Mobile: três traços + tema à esquerda (order-1), logo à direita (order-2). Desktop: este bloco fica oculto. */}
+          <div className="flex md:hidden items-center gap-1 order-1 shrink-0">
+            <motion.button
+              type="button"
+              whileTap={{ scale: 0.95 }}
+              className="md:hidden flex items-center justify-center min-h-[44px] min-w-[44px] p-3 text-white touch-manipulation rounded-lg hover:bg-white/10"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
+            >
+              <div className="w-6 h-5 flex flex-col justify-between relative">
+                <motion.span
+                  animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 8 : 0 }}
+                  className="block w-full h-0.5 bg-white rounded-full origin-center"
+                />
+                <motion.span
+                  animate={{ opacity: isOpen ? 0 : 1 }}
+                  className="block w-full h-0.5 bg-white rounded-full"
+                />
+                <motion.span
+                  animate={{ rotate: isOpen ? -45 : 0, y: isOpen ? -8 : 0 }}
+                  className="block w-full h-0.5 bg-white rounded-full origin-center"
+                />
+              </div>
+            </motion.button>
+            <div className="md:hidden">
+              <ThemeToggle />
+            </div>
+          </div>
+
+          <Link href="/" className="flex items-center gap-2 group shrink-0 order-2 md:order-1">
             <motion.span
               whileHover={{ scale: 1.06 }}
               transition={{ duration: 0.25 }}
@@ -98,7 +130,7 @@ export default function Navbar() {
             </motion.span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-8 order-3">
             {navLinks.map((link) =>
               link.submenu ? (
                 <div
@@ -159,163 +191,138 @@ export default function Navbar() {
             )}
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="hidden md:flex order-4 md:order-3 shrink-0">
             <ThemeToggle />
           </div>
-
-          <motion.button
-            whileTap={{ scale: 0.95 }}
-            className="md:hidden min-h-[44px] min-w-[44px] flex items-center justify-center p-3 text-white touch-manipulation"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Abrir menu"
-          >
-            <div className="w-6 h-5 flex flex-col justify-between">
-              <motion.span
-                animate={{
-                  rotate: isOpen ? 45 : 0,
-                  y: isOpen ? 8 : 0,
-                }}
-                className="block w-full h-0.5 bg-white"
-              />
-              <motion.span
-                animate={{ opacity: isOpen ? 0 : 1 }}
-                className="block w-full h-0.5 bg-white"
-              />
-              <motion.span
-                animate={{
-                  rotate: isOpen ? -45 : 0,
-                  y: isOpen ? -8 : 0,
-                }}
-                className="block w-full h-0.5 bg-white"
-              />
-            </div>
-          </motion.button>
         </div>
 
-        {/* Mobile Drawer - fixed overlay + panel sliding from right */}
-        <AnimatePresence>
-          {isOpen && (
-            <>
-              <motion.div
-                variants={backdropVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                onClick={() => setIsOpen(false)}
-                className="md:hidden fixed inset-0 top-0 left-0 right-0 bottom-0 z-[100] bg-black/60 backdrop-blur-sm"
-                aria-hidden="true"
-              />
-              <motion.aside
-                variants={panelVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="md:hidden fixed inset-y-0 right-0 z-[101] w-[min(320px,85vw)] flex flex-col bg-page-bg border-l border-adm-red/30 shadow-2xl"
-              >
-                {/* Drawer header */}
-                <div className="flex items-center justify-between p-5 border-b border-white/10">
-                  <img
-                    src="https://qbwfyevthmgzrkeqppbc.supabase.co/storage/v1/object/public/equipamentos/6%20-%20Logotipo/Logo%20ADM.png"
-                    alt="ADM Rental Service"
-                    className="h-12 w-auto object-contain"
-                  />
-                  <div className="flex items-center gap-2">
-                    <ThemeToggle />
-                    <motion.button
-                      whileTap={{ scale: 0.9 }}
-                      onClick={() => setIsOpen(false)}
-                      className="p-2 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors"
-                      aria-label="Fechar menu"
-                    >
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                    </motion.button>
-                  </div>
-                </div>
-
-                {/* Drawer content */}
-                <nav className="flex-1 overflow-y-auto p-5">
-                  <motion.ul variants={listVariants} initial="hidden" animate="visible" className="flex flex-col gap-1">
-                    {navLinks.map((link, i) =>
-                      link.submenu ? (
-                        <motion.li key={link.label} variants={itemVariants} className="border-b border-white/5">
-                          <button
-                            onClick={() => setOpenSubmenu(openSubmenu === link.label ? null : link.label)}
-                            className="flex items-center justify-between w-full min-h-[48px] py-4 px-4 text-left text-white/90 hover:text-adm-yellow transition-colors rounded-lg hover:bg-white/5 touch-manipulation"
-                          >
-                            <span className="font-medium">{link.label}</span>
-                            <motion.span
-                              animate={{ rotate: openSubmenu === link.label ? 180 : 0 }}
-                              transition={{ duration: 0.25 }}
-                              className="text-adm-yellow/80"
-                            >
-                              ›
-                            </motion.span>
-                          </button>
-                          <AnimatePresence>
-                            {openSubmenu === link.label && (
-                              <motion.ul
-                                initial={{ height: 0, opacity: 0 }}
-                                animate={{ height: "auto", opacity: 1 }}
-                                exit={{ height: 0, opacity: 0 }}
-                                transition={{ duration: 0.3 }}
-                                className="overflow-hidden pl-4 pb-3"
-                              >
-                                {link.submenu.map((sub, j) => (
-                                  <motion.li
-                                    key={sub.href}
-                                    initial={{ opacity: 0, x: 10 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: j * 0.05 }}
-                                  >
-<Link
-                            href={sub.href}
-                            className="block py-3.5 px-4 min-h-[44px] flex items-center text-white/70 hover:text-adm-yellow rounded-lg hover:bg-adm-red/10 transition-colors text-sm touch-manipulation"
-                            onClick={() => setIsOpen(false)}
-                          >
-                                      {sub.label}
-                                    </Link>
-                                  </motion.li>
-                                ))}
-                              </motion.ul>
-                            )}
-                          </AnimatePresence>
-                        </motion.li>
-                      ) : (
-                        <motion.li key={link.href} variants={itemVariants}>
-                          <Link
-                            href={link.href}
-                            className="block py-4 px-4 min-h-[48px] flex items-center text-white/90 hover:text-adm-yellow rounded-lg hover:bg-white/5 transition-colors font-medium touch-manipulation"
-                            onClick={() => setIsOpen(false)}
-                          >
-                            {link.label}
-                          </Link>
-                        </motion.li>
-                      )
-                    )}
-                  </motion.ul>
-                </nav>
-
-                {/* Drawer footer - CTA */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className="p-5 border-t border-white/10"
-                >
-                  <Link
-                    href="/contato"
+        {/* Mobile Drawer: renderizado em document.body para fixed funcionar (evita clip pelo nav com transform) */}
+        {mounted &&
+          typeof document !== "undefined" &&
+          ReactDOM.createPortal(
+            <AnimatePresence>
+              {isOpen && (
+                <>
+                  <motion.div
+                    variants={backdropVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
                     onClick={() => setIsOpen(false)}
-                    className="block w-full py-3 px-4 text-center bg-adm-red hover:bg-adm-red-dark text-white font-semibold rounded-xl transition-colors"
+                    className="fixed inset-0 z-[200] bg-black/50 backdrop-blur-md md:hidden"
+                    aria-hidden="true"
+                  />
+                  <motion.aside
+                    variants={panelVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    className={`fixed inset-y-0 left-0 z-[201] w-[min(300px,88vw)] h-full min-h-[100dvh] flex flex-col md:hidden rounded-r-2xl ${
+                      isLight
+                        ? "bg-gray-100/95 backdrop-blur-xl border-r border-gray-200/80 shadow-[4px_0_24px_-4px_rgba(0,0,0,0.12),8px_0_48px_-12px_rgba(0,0,0,0.08)]"
+                        : "bg-[#1a1a1a]/98 backdrop-blur-xl border-r border-white/10 shadow-[4px_0_32px_-4px_rgba(0,0,0,0.5),8px_0_64px_-12px_rgba(0,0,0,0.35)]"
+                    }`}
+                    aria-modal="true"
+                    role="dialog"
+                    aria-label="Menu de navegação"
                   >
-                    Solicitar Orçamento
-                  </Link>
-                </motion.div>
-              </motion.aside>
-            </>
+                    <div
+                      className={`flex items-center justify-between gap-3 p-4 shrink-0 ${
+                        isLight ? "border-b border-gray-200/80" : "border-b border-white/10"
+                      }`}
+                    >
+                      <Link
+                        href="/"
+                        onClick={() => setIsOpen(false)}
+                        className="shrink-0"
+                        aria-label="ADM Rental Service - Início"
+                      >
+                        <img
+                          src="https://qbwfyevthmgzrkeqppbc.supabase.co/storage/v1/object/public/equipamentos/6%20-%20Logotipo/Logo%20ADM.png"
+                          alt="ADM Rental Service"
+                          className="h-10 w-auto object-contain"
+                        />
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => setIsOpen(false)}
+                        className={`p-2.5 rounded-xl transition-all duration-200 shrink-0 ${
+                          isLight
+                            ? "text-gray-500 hover:text-gray-900 hover:bg-gray-200/80 active:scale-95"
+                            : "text-white/60 hover:text-white hover:bg-white/10 active:scale-95"
+                        }`}
+                        aria-label="Fechar menu"
+                      >
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+                    <nav className="flex-1 overflow-y-auto overflow-x-hidden px-3 py-2 min-h-0">
+                      <ul className="flex flex-col gap-0.5 list-none m-0 p-0">
+                        {navLinks.map((link) =>
+                          link.submenu ? (
+                            <li key={link.label} className="rounded-xl">
+                              <button
+                                type="button"
+                                onClick={() => setOpenSubmenu(openSubmenu === link.label ? null : link.label)}
+                                className={`flex items-center justify-between w-full py-3.5 px-4 text-left font-medium rounded-xl transition-all duration-200 tracking-tight ${
+                                  isLight
+                                    ? "text-gray-800 hover:bg-gray-200/70 hover:text-gray-900"
+                                    : "text-white/95 hover:bg-white/8 hover:text-white"
+                                } ${openSubmenu === link.label ? (isLight ? "bg-gray-200/60 text-gray-900" : "bg-white/10 text-white") : ""}`}
+                              >
+                                <span>{link.label}</span>
+                                <span
+                                  className={`text-lg leading-none transition-transform duration-200 ${openSubmenu === link.label ? "rotate-90" : "rotate-0"} ${isLight ? "text-gray-500" : "text-white/50"}`}
+                                >
+                                  ›
+                                </span>
+                              </button>
+                              {openSubmenu === link.label && (
+                                <ul className="pl-4 pr-2 pb-3 pt-0.5 list-none m-0 border-l-2 border-adm-red/30 ml-4 space-y-0.5">
+                                  {link.submenu.map((sub) => (
+                                    <li key={sub.href}>
+                                      <Link
+                                        href={sub.href}
+                                        onClick={() => setIsOpen(false)}
+                                        className={`block py-2.5 px-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+                                          isLight
+                                            ? "text-gray-600 hover:text-adm-red hover:bg-gray-200/60 hover:pl-4"
+                                            : "text-white/75 hover:text-adm-yellow hover:bg-white/5 hover:pl-4"
+                                        }`}
+                                      >
+                                        {sub.label}
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </li>
+                          ) : (
+                            <li key={link.href}>
+                              <Link
+                                href={link.href}
+                                onClick={() => setIsOpen(false)}
+                                className={`block py-3.5 px-4 font-medium rounded-xl transition-all duration-200 tracking-tight ${
+                                  isLight
+                                    ? "text-gray-800 hover:bg-gray-200/70 hover:text-gray-900"
+                                    : "text-white/95 hover:bg-white/8 hover:text-white"
+                                }`}
+                              >
+                                {link.label}
+                              </Link>
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    </nav>
+                  </motion.aside>
+                </>
+              )}
+            </AnimatePresence>,
+            document.body
           )}
-        </AnimatePresence>
       </div>
     </motion.nav>
   );
