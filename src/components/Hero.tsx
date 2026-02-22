@@ -32,7 +32,6 @@ const float = {
 
 export default function Hero({
   title = "Líder em locação de equipamentos pesados para todo o Brasil",
-  subtitle = "Há mais de uma década no mercado, a ADM Rental Service oferece equipamentos de qualidade para as obras mais exigentes. Nossa frota está pronta para o seu projeto.",
   ctaText = "Conheça Nossos Equipamentos",
   ctaHref = "/equipamentos",
   showCTA = true,
@@ -40,7 +39,7 @@ export default function Hero({
   imageAlt = "Equipamentos ADM Rental",
 }: HeroProps) {
   return (
-    <section className="relative min-h-[90svh] flex items-center justify-center overflow-hidden pt-16 sm:pt-20">
+    <section className="relative min-h-[90svh] flex items-center justify-center overflow-visible pt-16 sm:pt-20">
       {/* Animated gradient orbs */}
       <motion.div
         className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-adm-red/20 rounded-full blur-[120px]"
@@ -63,12 +62,12 @@ export default function Hero({
         animate={float}
       />
 
-      {/* Grid pattern */}
+      {/* Grid pattern - theme aware */}
       <div
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0 opacity-[0.06]"
         style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(var(--theme-border-strong) 1px, transparent 1px),
+            linear-gradient(90deg, var(--theme-border-strong) 1px, transparent 1px)`,
           backgroundSize: "60px 60px",
         }}
       />
@@ -92,22 +91,12 @@ export default function Hero({
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white leading-[1.2] mb-4"
+              className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-text-primary leading-[1.2] mb-4"
             >
-              <span className="bg-gradient-to-r from-white via-white to-white/80 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-text-primary via-text-primary to-text-muted-strong bg-clip-text text-transparent">
                 {title}
               </span>
             </motion.h1>
-
-            <motion.p
-              custom={2}
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-              className="text-sm sm:text-base text-white/70 mb-6 leading-relaxed max-w-xl"
-            >
-              {subtitle}
-            </motion.p>
 
             {/* Lista em tópicos - alinhada à esquerda */}
             <motion.ul
@@ -115,7 +104,7 @@ export default function Hero({
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="space-y-2 mb-8 text-sm text-white/80"
+              className="space-y-2 mb-8 text-sm text-text-muted-strong"
             >
               {[
                 "Mais de 10 anos no mercado",
@@ -156,7 +145,7 @@ export default function Hero({
                 <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
                   <Link
                     href="/contato"
-                    className="inline-flex items-center gap-2 px-6 py-3 text-sm border-2 border-adm-yellow/60 text-adm-yellow hover:bg-adm-yellow/10 font-semibold rounded-lg transition-all"
+                    className="btn-accent-outline inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold rounded-lg"
                   >
                     Solicitar Orçamento
                   </Link>
@@ -165,16 +154,19 @@ export default function Hero({
             )}
           </div>
 
-          {/* Coluna direita - imagem */}
+          {/* Coluna direita - imagem (escala 1.4x) */}
           <motion.div
             custom={2}
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="relative flex items-center justify-center min-h-[280px] lg:min-h-[360px]"
+            className="relative flex items-center justify-center min-h-[280px] lg:min-h-[360px] overflow-visible"
           >
             {imageSrc ? (
-              <div className="relative w-full max-w-[38.4rem] aspect-[4/3] min-h-[280px]">
+              <div
+                className="relative w-full max-w-[38.4rem] aspect-[4/3] min-h-[280px] origin-center"
+                style={{ transform: "scale(1.4)" }}
+              >
                 <Image
                   src={imageSrc}
                   alt={imageAlt}
@@ -186,8 +178,8 @@ export default function Hero({
                 />
               </div>
             ) : (
-              <div className="w-full max-w-lg aspect-[4/3] bg-adm-gray/50 border border-white/10 rounded-xl flex items-center justify-center">
-                <span className="text-white/30 text-sm">Imagem</span>
+              <div className="w-full max-w-lg aspect-[4/3] bg-card-bg border border-theme-border rounded-xl flex items-center justify-center">
+                <span className="text-text-muted text-sm">Imagem</span>
               </div>
             )}
           </motion.div>

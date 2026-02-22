@@ -16,17 +16,17 @@ export const metadata = {
 
 export default function ContatoPage() {
   return (
-    <main className="min-h-screen bg-adm-dark text-white">
+    <main className="min-h-screen bg-page-bg text-text-primary">
       <Navbar />
       <section className="pt-20 sm:pt-24 md:pt-32 pb-6 sm:pb-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
           <span className="text-adm-yellow font-semibold text-xs sm:text-sm uppercase tracking-wider">
             Fale Conosco
           </span>
-          <h1 className="mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white">
+          <h1 className="mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-text-primary">
             Contato
           </h1>
-          <p className="mt-3 sm:mt-4 text-sm sm:text-base md:text-lg text-white/70 max-w-2xl mx-auto px-0 sm:px-2">
+          <p className="mt-3 sm:mt-4 text-sm sm:text-base md:text-lg text-text-muted max-w-2xl mx-auto px-0 sm:px-2">
             Solicite um orcamento ou tire suas duvidas. Nossa equipe esta pronta para atende-lo.
           </p>
         </div>

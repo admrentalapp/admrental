@@ -10,6 +10,46 @@
   --adm-dark: #0f0f0f;
   --adm-gray: #1a1a1a;
   --adm-gray-light: #262626;
+  /* Theme-aware (light mode overrides below) */
+  --page-bg: #0a0a0a;
+  --section-bg: #0f0f0f;
+  --section-bg-alt: #1a1a1a;
+  --card-bg: #1a1a1a;
+  --text-primary: #ededed;
+  --text-muted: rgba(255, 255, 255, 0.7);
+  --text-muted-strong: rgba(255, 255, 255, 0.9);
+  --theme-border: rgba(255, 255, 255, 0.1);
+  --theme-border-strong: rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="light"] {
+  --background: #e8e8e8;
+  --foreground: #1a1a1a;
+  --page-bg: #e5e7eb;
+  --section-bg: #f3f4f6;
+  --section-bg-alt: #e5e7eb;
+  --card-bg: #ffffff;
+  --text-primary: #111827;
+  --text-muted: #4b5563;
+  --text-muted-strong: #374151;
+  --theme-border: rgba(0, 0, 0, 0.08);
+  --theme-border-strong: rgba(0, 0, 0, 0.12);
+  /* Accent em modo claro: vermelho moderno */
+  --accent: #b91c1c;
+  --accent-hover: #dc2626;
+  --accent-soft: rgba(220, 38, 38, 0.08);
+  --accent-shadow: 0 4px 14px rgba(220, 38, 38, 0.2);
+  --accent-shadow-hover: 0 6px 20px rgba(220, 38, 38, 0.3);
+  --accent-border: rgba(220, 38, 38, 0.3);
+}
+
+:root {
+  --accent: #eab308;
+  --accent-hover: #facc15;
+  --accent-soft: rgba(234, 179, 8, 0.1);
+  --accent-shadow: none;
+  --accent-shadow-hover: none;
+  --accent-border: rgba(234, 179, 8, 0.25);
 }
 
 @theme inline {
@@ -22,8 +62,76 @@
   --color-adm-dark: #0f0f0f;
   --color-adm-gray: #1a1a1a;
   --color-adm-gray-light: #262626;
+  --color-page-bg: var(--page-bg);
+  --color-section-bg: var(--section-bg);
+  --color-section-bg-alt: var(--section-bg-alt);
+  --color-card-bg: var(--card-bg);
+  --color-text-primary: var(--text-primary);
+  --color-text-muted: var(--text-muted);
+  --color-text-muted-strong: var(--text-muted-strong);
+  --color-theme-border: var(--theme-border);
+  --color-theme-border-strong: var(--theme-border-strong);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}
+
+/* Botão/link de destaque (amarelo no escuro, vermelho moderno no claro) */
+.btn-accent-outline {
+  transition: all 0.25s ease;
+  border-width: 2px;
+  border-color: var(--accent);
+  color: var(--accent);
+  background: transparent;
+  box-shadow: var(--accent-shadow);
+}
+.btn-accent-outline:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent-hover);
+  color: var(--accent-hover);
+  box-shadow: var(--accent-shadow-hover);
+  transform: translateY(-2px);
+}
+[data-theme="light"] .btn-accent-outline {
+  border-color: rgba(185, 28, 28, 0.6);
+  color: var(--accent);
+}
+[data-theme="light"] .btn-accent-outline:hover {
+  border-color: var(--accent-hover);
+  color: var(--accent-hover);
+}
+
+.link-accent {
+  color: var(--accent);
+  transition: color 0.2s ease, box-shadow 0.2s ease;
+}
+.link-accent:hover {
+  color: var(--accent-hover);
+}
+[data-theme="light"] .link-accent {
+  color: var(--accent);
+  font-weight: 600;
+}
+[data-theme="light"] .link-accent:hover {
+  color: var(--accent-hover);
+  text-shadow: 0 0 20px rgba(220, 38, 38, 0.15);
+}
+
+/* Badge/chip de destaque (amarelo no escuro, vermelho no claro) */
+.badge-accent {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+}
+[data-theme="light"] .badge-accent {
+  background: rgba(220, 38, 38, 0.08);
+  color: var(--accent);
+}
+
+/* Título com hover para accent (amarelo/vermelho) */
+.group:hover .title-accent-hover {
+  color: var(--accent-hover);
 }
 
 * {

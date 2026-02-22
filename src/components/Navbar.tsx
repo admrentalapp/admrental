@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
   { href: "/", label: "Início" },
@@ -74,10 +75,8 @@ export default function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-adm-dark/95 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/20"
-          : "bg-transparent border-b border-white/5"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-adm-dark/95 backdrop-blur-xl border-b border-white/10 ${
+        scrolled ? "shadow-lg shadow-black/20" : ""
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -152,6 +151,10 @@ export default function Navbar() {
             )}
           </div>
 
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+          </div>
+
           <motion.button
             whileTap={{ scale: 0.95 }}
             className="md:hidden p-2 text-white"
@@ -208,16 +211,19 @@ export default function Navbar() {
                     alt="ADM Rental Service"
                     className="h-12 w-auto object-contain"
                   />
-                  <motion.button
-                    whileTap={{ scale: 0.9 }}
-                    onClick={() => setIsOpen(false)}
-                    className="p-2 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors"
-                    aria-label="Fechar menu"
-                  >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </motion.button>
+                  <div className="flex items-center gap-2">
+                    <ThemeToggle />
+                    <motion.button
+                      whileTap={{ scale: 0.9 }}
+                      onClick={() => setIsOpen(false)}
+                      className="p-2 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+                      aria-label="Fechar menu"
+                    >
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </motion.button>
+                  </div>
                 </div>
 
                 {/* Drawer content */}

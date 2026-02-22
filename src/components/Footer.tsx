@@ -24,7 +24,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-adm-dark border-t border-white/5 relative overflow-hidden">
+    <footer className="bg-adm-dark border-t border-theme-border relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-t from-adm-red/5 to-transparent pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 relative">

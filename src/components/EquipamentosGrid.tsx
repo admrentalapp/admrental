@@ -42,17 +42,17 @@ export default function EquipamentosGrid({ equipamentos }: Props) {
   if (!equipamentos?.length) return null;
 
   return (
-    <section ref={ref} className="py-16 sm:py-24 bg-adm-dark">
+    <section ref={ref} className="py-16 sm:py-24 bg-section-bg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           className="text-center mb-12"
         >
-          <span className="text-adm-yellow font-semibold text-sm uppercase tracking-wider">
+          <span className="badge-accent inline-block px-3 py-1 rounded-full text-sm font-semibold uppercase tracking-wider border">
             Disponíveis
           </span>
-          <h2 className="mt-2 text-2xl sm:text-3xl md:text-4xl font-bold text-white">
+          <h2 className="mt-2 text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary">
             Equipamentos em Destaque
           </h2>
         </motion.div>
@@ -67,16 +67,16 @@ export default function EquipamentosGrid({ equipamentos }: Props) {
             <motion.div key={eq.id} variants={item}>
               <Link href={eq.slug ? `/equipamentos/${eq.slug}` : "/equipamentos"}>
                 <motion.article
-                  whileHover={{ y: -6, scale: 1.01 }}
-                  className="group h-full bg-adm-gray border border-white/5 rounded-xl overflow-hidden hover:border-adm-red/30 transition-colors"
+                  whileHover={{ y: -4, scale: 1.01 }}
+                  className="group h-full bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100"
                 >
-                  <div className="aspect-video relative bg-adm-gray-light overflow-hidden">
+                  <div className="aspect-video relative overflow-hidden bg-gray-100">
                     {eq.imagem_url ? (
                       <Image
                         src={eq.imagem_url}
                         alt={eq.nome}
                         fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-700"
+                        className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         unoptimized
                       />
@@ -85,22 +85,26 @@ export default function EquipamentosGrid({ equipamentos }: Props) {
                         <span className="text-5xl opacity-50">🏗️</span>
                       </div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-adm-dark/90 to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-4">
-                      <h3 className="text-lg font-bold text-white group-hover:text-adm-yellow transition-colors">
-                        {eq.nome}
-                      </h3>
-                    </div>
                   </div>
-                  <div className="p-4">
-                    {eq.descricao && (
-                      <p className="text-white/70 text-sm line-clamp-2">{eq.descricao}</p>
-                    )}
-                    {eq.capacidade && (
-                      <p className="mt-2 text-adm-yellow text-sm font-medium">
-                        Capacidade: {eq.capacidade}
-                      </p>
-                    )}
+                  <div className="p-5">
+                    <h3 className="text-text-primary font-bold text-lg uppercase tracking-tight">
+                      {eq.nome}
+                    </h3>
+                    <div className="mt-3 border-b border-gray-200 pb-3" />
+                    <div className="space-y-2 text-sm">
+                      {eq.capacidade && (
+                        <div className="flex justify-between gap-4">
+                          <span className="text-text-muted">Capacidade</span>
+                          <span className="text-text-primary font-medium text-right">{eq.capacidade}</span>
+                        </div>
+                      )}
+                      {eq.descricao && (
+                        <div className="flex justify-between gap-4">
+                          <span className="text-text-muted">Descrição</span>
+                          <span className="text-text-primary text-right line-clamp-1">{eq.descricao}</span>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </motion.article>
               </Link>

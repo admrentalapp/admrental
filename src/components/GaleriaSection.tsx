@@ -23,7 +23,7 @@ export default function GaleriaSection({ galeria = [] }: Props) {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="galeria" ref={ref} className="py-20 sm:py-28 bg-adm-dark relative overflow-hidden">
+    <section id="galeria" ref={ref} className="py-20 sm:py-28 bg-section-bg relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-adm-red/5 via-transparent to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -33,13 +33,13 @@ export default function GaleriaSection({ galeria = [] }: Props) {
           className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16"
         >
           <div>
-            <span className="text-adm-yellow font-semibold text-sm uppercase tracking-wider">
+            <span className="badge-accent inline-block px-3 py-1 rounded-full text-sm font-semibold uppercase tracking-wider border">
               Portfolio
             </span>
-            <h2 className="mt-2 text-3xl sm:text-4xl md:text-5xl font-bold text-white">
+            <h2 className="mt-2 text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary">
               Obras Realizadas
             </h2>
-            <p className="mt-4 text-lg text-white/70 max-w-2xl">
+            <p className="mt-4 text-lg text-text-muted max-w-2xl">
               Projetos onde nossos equipamentos fizeram a diferença.
             </p>
           </div>
@@ -69,7 +69,7 @@ export default function GaleriaSection({ galeria = [] }: Props) {
                   <Link href="/galeria">
                     <motion.div
                       whileHover={{ scale: 1.02 }}
-                      className="group relative overflow-hidden rounded-2xl aspect-[4/3] sm:aspect-auto sm:min-h-[280px] bg-adm-gray border border-white/5 hover:border-adm-red/40 transition-colors"
+                      className="group relative overflow-hidden rounded-2xl aspect-[4/3] sm:aspect-auto sm:min-h-[280px] bg-card-bg border border-theme-border hover:border-adm-red/40 transition-colors"
                     >
                       {imgUrl ? (
                         <Image
@@ -99,10 +99,10 @@ export default function GaleriaSection({ galeria = [] }: Props) {
                         </div>
                       )}
                       <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-                        <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-adm-yellow transition-colors">
+                        <h3 className="title-accent-hover text-xl sm:text-2xl font-bold text-text-primary transition-colors">
                           {item.titulo ?? "Obra"}
                         </h3>
-                        <p className="text-white/70 text-sm mt-1">
+                        <p className="text-text-muted text-sm mt-1">
                           {item.categoria ?? item.local ?? ""}
                         </p>
                       </div>
@@ -126,7 +126,7 @@ export default function GaleriaSection({ galeria = [] }: Props) {
                     <span className="text-7xl opacity-20">🏗️</span>
                   </div>
                   <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <p className="text-white/40 text-sm">Adicione fotos na galeria (Supabase)</p>
+                    <p className="text-text-muted text-sm">Adicione fotos na galeria (Supabase)</p>
                   </div>
                 </motion.div>
               ))}

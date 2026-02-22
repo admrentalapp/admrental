@@ -65,7 +65,7 @@ export default function EquipamentosSection({ imagemLinhaIcamento, imagemLinhaCa
     <section
       id="equipamentos"
       ref={ref}
-      className="py-20 sm:py-28 bg-gradient-to-b from-adm-gray to-adm-dark relative overflow-hidden"
+      className="py-20 sm:py-28 bg-gradient-to-b from-section-bg-alt to-section-bg relative overflow-hidden"
     >
       {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-adm-red/5 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2" />
@@ -78,13 +78,13 @@ export default function EquipamentosSection({ imagemLinhaIcamento, imagemLinhaCa
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-adm-yellow/10 text-adm-yellow text-sm font-semibold uppercase tracking-wider border border-adm-yellow/20">
+          <span className="badge-accent inline-block px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider border">
             Nossa Frota
           </span>
-          <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-bold text-white">
+          <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary">
             Frota de Máquinas Pesadas – Locação
           </h2>
-          <p className="mt-4 text-lg text-white/70 max-w-2xl mx-auto">
+          <p className="mt-4 text-lg text-text-muted max-w-2xl mx-auto">
             Oferecemos uma ampla variedade de máquinas e equipamentos pesados para as demandas mais exigentes.
           </p>
         </motion.div>
@@ -108,62 +108,46 @@ export default function EquipamentosSection({ imagemLinhaIcamento, imagemLinhaCa
             return (
             <motion.div key={equip.id} variants={item}>
               <Link href={equip.href}>
-                <motion.div
-                  whileHover={{ y: -8, scale: 1.02 }}
-                  className="group relative h-full bg-adm-gray-light/50 backdrop-blur-sm border border-white/5 rounded-2xl overflow-hidden hover:border-adm-red/40 transition-colors duration-300"
+                <motion.article
+                  whileHover={{ y: -4, scale: 1.01 }}
+                  className="group h-full bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100"
                 >
-                  <div className="aspect-video relative overflow-hidden">
+                  <div className="aspect-video relative overflow-hidden bg-gray-100">
                     {showImagem ? (
-                      <>
-                        <Image
-                          src={imagemUrl}
-                          alt={equip.nome}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-600"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          unoptimized
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-adm-gray-light to-transparent opacity-60" />
-                      </>
+                      <Image
+                        src={imagemUrl}
+                        alt={equip.nome}
+                        fill
+                        className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        unoptimized
+                      />
                     ) : (
-                      <>
-                        <motion.div
-                          className="absolute inset-0 bg-gradient-to-br from-adm-red/30 to-adm-yellow/20"
-                          whileHover={{ scale: 1.1 }}
-                          transition={{ duration: 0.6 }}
-                        />
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <motion.div
-                            className="text-6xl opacity-30 group-hover:opacity-60"
-                            animate={{ rotate: [0, 5, -5, 0] }}
-                            transition={{ duration: 4, repeat: Infinity }}
-                          >
-                            🏗️
-                          </motion.div>
-                        </div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-adm-gray-light to-transparent opacity-60" />
-                      </>
+                      <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-adm-red/20 to-adm-yellow/10">
+                        <span className="text-5xl opacity-50">🏗️</span>
+                      </div>
                     )}
                   </div>
-                  <div className="p-6">
-                    <span className="text-adm-red text-sm font-semibold">
-                      {equip.categoria}
-                    </span>
-                    <h3 className="mt-2 text-xl font-bold text-white group-hover:text-adm-yellow transition-colors">
+                  <div className="p-5">
+                    <h3 className="text-text-primary font-bold text-lg uppercase tracking-tight">
                       {equip.nome}
                     </h3>
-                    <p className="mt-3 text-white/70 text-sm leading-relaxed">
-                      {equip.descricao}
-                    </p>
-                    <motion.span
-                      className="mt-4 inline-flex items-center gap-2 text-adm-yellow font-medium text-sm"
-                      whileHover={{ gap: 12 }}
-                    >
-                      Ver equipamentos
-                      <span>→</span>
-                    </motion.span>
+                    <div className="mt-3 border-b border-gray-200 pb-3" />
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between gap-4">
+                        <span className="text-text-muted">Categoria</span>
+                        <span className="text-text-primary font-medium text-right">{equip.categoria}</span>
+                      </div>
+                      <div className="flex justify-between gap-4">
+                        <span className="text-text-muted">Aplicação</span>
+                        <span className="text-text-primary text-right line-clamp-1">{equip.descricao}</span>
+                      </div>
+                    </div>
+                    <span className="link-accent mt-4 inline-flex items-center gap-2 font-medium text-sm">
+                      Ver equipamentos <span>→</span>
+                    </span>
                   </div>
-                </motion.div>
+                </motion.article>
               </Link>
             </motion.div>
           );

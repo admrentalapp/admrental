@@ -73,7 +73,7 @@ export default async function EquipamentoPage({ params }: PageProps) {
   const equipamento = data as Equipamento;
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-page-bg text-text-primary">
       <Navbar />
       <article className="pt-24 pb-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -88,7 +88,7 @@ export default async function EquipamentoPage({ params }: PageProps) {
           </Link>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 xl:gap-16">
-            <div className="relative aspect-video lg:aspect-square rounded-xl sm:rounded-2xl overflow-hidden bg-adm-gray border border-white/5 w-full">
+            <div className="relative aspect-video lg:aspect-square rounded-xl sm:rounded-2xl overflow-hidden bg-card-bg border border-theme-border w-full">
               {(equipamento.imagem ?? equipamento.imagem_url) ? (
                 <Image
                   src={(equipamento.imagem ?? equipamento.imagem_url) as string}
@@ -121,11 +121,11 @@ export default async function EquipamentoPage({ params }: PageProps) {
               <span className="text-adm-yellow font-semibold text-sm uppercase tracking-wider">
                 {equipamento.categoria}
               </span>
-              <h1 className="mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white">
+              <h1 className="mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-text-primary">
                 {equipamento.nome}
               </h1>
               {equipamento.modelo && (
-                <p className="mt-3 text-white/70 text-base sm:text-lg">{equipamento.modelo}</p>
+                <p className="mt-3 text-text-muted text-base sm:text-lg">{equipamento.modelo}</p>
               )}
               {equipamento.capacidade && (
                 <div className="mt-4 sm:mt-6 inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base rounded-lg bg-adm-yellow/10 border border-adm-yellow/30">
@@ -139,7 +139,7 @@ export default async function EquipamentoPage({ params }: PageProps) {
                   <h2 className="text-adm-yellow font-semibold text-sm uppercase tracking-wider mb-3">
                     Descrição
                   </h2>
-                  <p className="text-white/90 text-sm sm:text-base md:text-lg leading-relaxed">
+                  <p className="text-text-muted-strong text-sm sm:text-base md:text-lg leading-relaxed">
                     {equipamento.descricao}
                   </p>
                 </div>

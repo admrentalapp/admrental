@@ -121,6 +121,43 @@ https://qbwfyevthmgzrkeqppbc.supabase.co/storage/v1/object/public/galeria/obra-s
 
 ---
 
+## 4. QUEM SOMOS (imagem da seção)
+
+A seção **Quem Somos** da página inicial usa uma imagem da tabela **"Quem somos"** (ou **quem_somos**, dependendo de como a tabela foi criada).
+
+### 4.1 Criar a tabela (se ainda não existir)
+
+1. **Table Editor** → **New table**
+2. Nome: `Quem somos` ou `quem_somos`
+3. Adicione as colunas:
+   - `id` (uuid, primary key, default: gen_random_uuid())
+   - `imagem_url` (text)
+
+### 4.2 Upload da imagem
+
+1. **Storage** → crie um bucket **quem-somos** (ou use o bucket **galeria** com uma pasta)
+2. Faça upload da imagem
+3. Obtenha a **URL pública** do arquivo (Get URL)
+
+### 4.3 Inserir na tabela
+
+1. **Table Editor** → **Quem somos** (ou **quem_somos**)
+2. **Insert row** e preencha:
+   - **imagem_url**: cole a URL pública da imagem
+
+**Exemplo de imagem_url:**
+```
+https://SEU_PROJETO.supabase.co/storage/v1/object/public/galeria/quem-somos.jpg
+```
+
+### 4.4 Se a imagem não aparecer
+
+- Confirme que existe **pelo menos um registro** com `imagem_url` preenchido.
+- Se a tabela tiver **Row Level Security (RLS)** ativado, crie uma política que permita **SELECT** para usuários anônimos (ou desative RLS para essa tabela em desenvolvimento).
+- No Supabase, o nome real da tabela pode ser **quem_somos** (minúsculo); o site tenta os dois nomes automaticamente.
+
+---
+
 ## Resumo rápido
 
 | O que você quer | Onde fazer upload   | Tabela      | Campo da URL      |
@@ -128,6 +165,7 @@ https://qbwfyevthmgzrkeqppbc.supabase.co/storage/v1/object/public/galeria/obra-s
 | Foto do equipamento | bucket `equipamentos` | equipamentos | imagem_url        |
 | Logo do cliente | bucket `clientes`   | clientes   | logo_url          |
 | Foto da galeria | bucket `galeria`    | galeria    | imagem_url        |
+| Imagem da seção Quem somos | bucket `galeria` ou `quem-somos` | Quem somos / quem_somos | imagem_url |
 
 ---
 
@@ -148,3 +186,5 @@ https://qbwfyevthmgzrkeqppbc.supabase.co/storage/v1/object/public/galeria/obra-s
 - [ ] Registros em `clientes` com `nome` e `logo_url`
 - [ ] Fotos da galeria no bucket `galeria`
 - [ ] Registros em `galeria` com `imagem_url` preenchido
+- [ ] Tabela **Quem somos** (ou **quem_somos**) com pelo menos um registro e `imagem_url` preenchido
+- [ ] Se usar RLS na tabela Quem somos, política de SELECT para leitura pública

@@ -33,7 +33,7 @@ export default function DepoimentosSection() {
     <section
       id="depoimentos"
       ref={ref}
-      className="py-20 sm:py-28 bg-adm-dark relative overflow-hidden"
+      className="py-20 sm:py-28 bg-section-bg relative overflow-hidden"
     >
       <div className="absolute top-1/2 left-0 w-96 h-96 bg-adm-red/5 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2" />
       <div className="absolute top-1/2 right-0 w-80 h-80 bg-adm-yellow/5 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2" />
@@ -47,10 +47,10 @@ export default function DepoimentosSection() {
           <span className="inline-block px-4 py-2 rounded-full bg-adm-red/20 text-adm-red text-sm font-semibold uppercase tracking-wider border border-adm-red/30">
             Depoimentos
           </span>
-          <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-bold text-white">
+          <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary">
             O Que Nossos Clientes Dizem
           </h2>
-          <p className="mt-4 text-lg text-white/70 max-w-2xl mx-auto">
+          <p className="mt-4 text-lg text-text-muted max-w-2xl mx-auto">
             Confiança construída em cada projeto realizado.
           </p>
         </motion.div>
@@ -74,12 +74,12 @@ export default function DepoimentosSection() {
                 transition={{ duration: 0.4 }}
                 className="absolute inset-0 flex flex-col items-center justify-center text-center px-4"
               >
-                <blockquote className="text-xl sm:text-2xl text-white/90 leading-relaxed max-w-3xl mx-auto">
+                <blockquote className="text-xl sm:text-2xl text-text-muted-strong leading-relaxed max-w-3xl mx-auto">
                   &ldquo;{dep.texto}&rdquo;
                 </blockquote>
                 <div className="mt-8">
                   <p className="font-bold text-adm-yellow">{dep.autor}</p>
-                  <p className="text-sm text-white/50 mt-1">{dep.empresa}</p>
+                  <p className="text-sm text-text-muted mt-1">{dep.empresa}</p>
                 </div>
               </motion.div>
             ))}
@@ -92,7 +92,7 @@ export default function DepoimentosSection() {
                 key={i}
                 onClick={() => setActiveIndex(i)}
                 className={`w-2.5 h-2.5 rounded-full transition-colors ${
-                  activeIndex === i ? "bg-adm-red" : "bg-white/30 hover:bg-white/50"
+                  activeIndex === i ? "bg-adm-red" : "bg-theme-border-strong hover:opacity-80"
                 }`}
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
@@ -109,7 +109,7 @@ export default function DepoimentosSection() {
                   prev === 0 ? depoimentos.length - 1 : prev - 1
                 )
               }
-              className="p-2 rounded-lg border border-white/20 text-white/70 hover:text-adm-yellow hover:border-adm-yellow/50 transition-colors"
+              className="p-2 rounded-lg border border-theme-border-strong text-text-muted hover:text-adm-yellow hover:border-adm-yellow/50 transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               aria-label="Depoimento anterior"
@@ -122,7 +122,7 @@ export default function DepoimentosSection() {
                   prev === depoimentos.length - 1 ? 0 : prev + 1
                 )
               }
-              className="p-2 rounded-lg border border-white/20 text-white/70 hover:text-adm-yellow hover:border-adm-yellow/50 transition-colors"
+              className="p-2 rounded-lg border border-theme-border-strong text-text-muted hover:text-adm-yellow hover:border-adm-yellow/50 transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               aria-label="Próximo depoimento"

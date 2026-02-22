@@ -91,7 +91,7 @@ export default function AreasAtuacaoSection() {
     <section
       id="areas-atuacao"
       ref={ref}
-      className="py-20 sm:py-28 bg-adm-gray relative overflow-hidden"
+      className="py-20 sm:py-28 bg-section-bg-alt relative overflow-hidden"
     >
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-adm-red/5 rounded-full blur-[120px] -translate-x-1/2 translate-y-1/2" />
       <div className="absolute top-0 right-0 w-80 h-80 bg-adm-yellow/5 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2" />
@@ -102,13 +102,13 @@ export default function AreasAtuacaoSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-adm-yellow/10 text-adm-yellow text-sm font-semibold uppercase tracking-wider border border-adm-yellow/20">
+          <span className="badge-accent inline-block px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider border">
             Mercados
           </span>
-          <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-bold text-white">
+          <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary">
             Áreas de Atuação
           </h2>
-          <p className="mt-4 text-lg text-white/70 max-w-2xl mx-auto">
+          <p className="mt-4 text-lg text-text-muted max-w-2xl mx-auto">
             Atendemos os principais segmentos que demandam equipamentos pesados em todo o Brasil.
           </p>
         </motion.div>
@@ -124,12 +124,12 @@ export default function AreasAtuacaoSection() {
               <Link href={area.href}>
                 <motion.div
                   whileHover={{ y: -4, borderColor: "rgba(220, 38, 38, 0.4)" }}
-                  className="group h-full p-6 rounded-xl bg-adm-dark/50 border border-white/5 hover:border-adm-red/40 transition-colors duration-300"
+                  className="group h-full p-6 rounded-xl bg-card-bg/80 border border-theme-border hover:border-adm-red/40 transition-colors duration-300"
                 >
-                  <h3 className="text-lg font-bold text-white group-hover:text-adm-yellow transition-colors">
+                  <h3 className="title-accent-hover text-lg font-bold text-text-primary transition-colors">
                     {area.titulo}
                   </h3>
-                  <p className="mt-3 text-white/60 text-sm leading-relaxed">
+                  <p className="mt-3 text-text-muted text-sm leading-relaxed">
                     {area.descricao}
                   </p>
                   <span className="mt-4 inline-flex items-center gap-2 text-adm-red font-medium text-sm group-hover:gap-3 transition-all">

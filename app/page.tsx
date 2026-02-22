@@ -22,6 +22,9 @@ export const metadata = {
     "ADM Rental Service - Locação de máquinas e equipamentos pesados. Gruas, guindastes, caminhões e retroescavadeiras em todo o Brasil.",
 };
 
+// Buscar dados atualizados do Supabase a cada requisição (evita cache vazio)
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const supabase = createClient();
 
@@ -30,21 +33,55 @@ export default async function Home() {
     { data: clientesData },
     { data: galeriaData },
     { data: galeriaCapaData },
+    { data: galeriaTituloData },
+    { data: videosData },
+    quemSomosResultA,
+    quemSomosResultB,
+    { data: frotaData },
   ] = await Promise.all([
     supabase.from("equipamentos").select("*").order("ordem", { ascending: true }),
-    supabase.from("clientes").select("id, nome, logo_url, logo").order("ordem", { ascending: true }),
+    supabase.from("clientes").select("id, nome, logo_url").order("ordem", { ascending: true }),
     supabase.from("galeria").select("*").order("created_at", { ascending: false }).limit(6),
-    supabase.from("galeria").select("imagem_url, imagem").eq("categoria", "capa").order("created_at", { ascending: false }).limit(1).maybeSingle(),
+    supabase.from("galeria").select("*").ilike("categoria", "capa").order("created_at", { ascending: false }).limit(1).maybeSingle(),
+    supabase.from("galeria").select("*").ilike("titulo", "%Imagem Principal%").order("created_at", { ascending: false }).limit(1).maybeSingle(),
+    supabase.from("videos").select("id, titulo, video_url").order("ordem", { ascending: true }).limit(2),
+    supabase.from("Quem somos").select("*").limit(1).maybeSingle(),
+    supabase.from("quem_somos").select("*").limit(1).maybeSingle(),
+    supabase.from("Frota").select("titulo, imagem_url").order("Ordem", { ascending: true }),
   ]);
+
+  // Usar o primeiro resultado que tiver dados (tabela pode ser "Quem somos" ou "quem_somos")
+  const quemSomosRow =
+    (quemSomosResultA.data as Record<string, unknown> | null) ??
+    (quemSomosResultB.data as Record<string, unknown> | null) ??
+    null;
+  const quemSomosImagem = quemSomosRow
+    ? (String(quemSomosRow["imagem_url"] ?? "").trim() || String(quemSomosRow["imagem"] ?? "").trim() || null)
+    : null;
 
   const equipamentos = (equipamentosData ?? []) as Equipamento[];
   const clientes = clientesData ?? [];
   const galeria = galeriaData ?? [];
-  const galeriaCapa = galeriaCapaData as { imagem_url?: string; imagem?: string } | null;
+  const videos = videosData ?? [];
+  const frotaRows = (frotaData ?? []) as { titulo?: string | null; imagem_url?: string }[];
+  const getFrotaImagemByTitulo = (titulo: string) => {
+    const t = titulo.trim().toLowerCase();
+    const row = frotaRows.find((r) => (r.titulo ?? "").trim().toLowerCase() === t);
+    return (row?.imagem_url ?? "").trim() || null;
+  };
+  const imagemLinhaIcamento = getFrotaImagemByTitulo("Linha Içamento");
+  const imagemLinhaCaminhoes = getFrotaImagemByTitulo("Linha Caminhões");
+  const imagemLinhaAmarela = getFrotaImagemByTitulo("Linha Amarela");
+  type GaleriaRow = { imagem_url?: string; imagem?: string } | null;
+  const galeriaCapa = galeriaCapaData as GaleriaRow;
+  const galeriaTitulo = galeriaTituloData as GaleriaRow;
+  const capaRow = galeriaCapa ?? galeriaTitulo;
+  const rawCapaUrl = capaRow?.imagem_url ?? capaRow?.imagem;
+  const IMAGEM_CAPA_PADRAO =
+    "https://qbwfyevthmgzrkeqppbc.supabase.co/storage/v1/object/public/galeria/Secao%20Capa/TELA%20PRINCIPAL.png";
   const imagemCapaHero =
-    (galeriaCapa?.imagem_url && galeriaCapa.imagem_url.trim()) ||
-    galeriaCapa?.imagem?.trim() ||
-    null;
+    (typeof rawCapaUrl === "string" && rawCapaUrl.trim() ? rawCapaUrl.trim() : null) ??
+    IMAGEM_CAPA_PADRAO;
 
   const getImagemUrl = (e: Equipamento) =>
     (e.imagem_url && e.imagem_url.trim()) || (e as { imagem?: string }).imagem?.trim() || null;
@@ -52,55 +89,17 @@ export default async function Home() {
     (e) => e.destaque === true && getImagemUrl(e)
   );
 
-  const linhaIcamento = equipamentos.find(
-    (e) => e.categoria?.toLowerCase().includes("içamento") ?? false
-  );
-  const imagemLinhaIcamento =
-    linhaIcamento?.imagem_url ?? (linhaIcamento as { imagem?: string })?.imagem ?? null;
-
-  const isCategoriaLinhaCaminhoes = (e: Equipamento) => {
-    const cat = (e.categoria ?? "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    const slug = cat.replace(/\s+/g, "-");
-    return (
-      slug === "linha-caminhoes" ||
-      cat.includes("linha-caminhoes") ||
-      (cat.includes("linha") && cat.includes("caminho"))
-    );
-  };
-  const linhaCaminhoesComImagem = equipamentos.find(
-    (e) => isCategoriaLinhaCaminhoes(e) && (e.imagem_url ?? (e as { imagem?: string }).imagem)
-  );
-  const linhaCaminhoes = linhaCaminhoesComImagem ?? equipamentos.find(isCategoriaLinhaCaminhoes);
-  const imagemLinhaCaminhoes =
-    linhaCaminhoes?.imagem_url ?? (linhaCaminhoes as { imagem?: string })?.imagem ?? null;
-
-  const isCategoriaLinhaAmarela = (e: Equipamento) => {
-    const cat = (e.categoria ?? "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    const slug = cat.replace(/\s+/g, "-");
-    return (
-      slug === "linha-amarela" ||
-      cat.includes("linha-amarela") ||
-      (cat.includes("linha") && cat.includes("amarela"))
-    );
-  };
-  const linhaAmarelaComImagem = equipamentos.filter(
-    (e) => isCategoriaLinhaAmarela(e) && getImagemUrl(e)
-  );
-  const linhaAmarela =
-    linhaAmarelaComImagem[1] ?? linhaAmarelaComImagem[0] ?? equipamentos.find(isCategoriaLinhaAmarela);
-  const imagemLinhaAmarela = linhaAmarela ? getImagemUrl(linhaAmarela) : null;
-
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-page-bg text-text-primary">
       <Navbar />
       <Hero imageSrc={imagemCapaHero ?? undefined} />
       <EquipamentosSection imagemLinhaIcamento={imagemLinhaIcamento} imagemLinhaCaminhoes={imagemLinhaCaminhoes} imagemLinhaAmarela={imagemLinhaAmarela} />
       <EquipamentosGrid equipamentos={equipamentosDestaque} />
-      <ClientesSection />
-      <QuemSomosSection />
+      <ClientesSection clientes={clientes} />
+      <QuemSomosSection imagemUrl={quemSomosImagem} />
       <AreasAtuacaoSection />
       <GaleriaSection galeria={galeria} />
-      <VideoSection />
+      <VideoSection videos={videos} />
       <DepoimentosSection />
       <ContatoSection />
       <Footer />

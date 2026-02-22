@@ -18,6 +18,7 @@ export interface Database {
           descricao?: string | null;
           imagem?: string | null;
           imagem_url?: string | null;
+          imagem_capa?: string | null;
           linha?: string;
           modelo?: string | null;
           capacidade?: string | null;
@@ -71,18 +72,66 @@ export interface Database {
       videos: {
         Row: {
           id: string;
-          titulo: string;
-          youtube_id: string;
-          descricao: string | null;
-          ordem: number;
-          created_at: string;
-          updated_at: string;
+          titulo: string | null;
+          video_url: string;
+          ordem: number | null;
+          created_at: string | null;
         };
-        Insert: Omit<Database["public"]["Tables"]["videos"]["Row"], "created_at" | "updated_at"> & {
-          created_at?: string;
-          updated_at?: string;
+        Insert: {
+          id?: string;
+          titulo?: string | null;
+          video_url: string;
+          ordem?: number | null;
+          created_at?: string | null;
         };
         Update: Partial<Database["public"]["Tables"]["videos"]["Insert"]>;
+      };
+      Frota: {
+        Row: {
+          id: string;
+          titulo: string | null;
+          imagem_url: string;
+          categoria: string | null;
+          created_at: string | null;
+          "Ordem": number | null;
+        };
+        Insert: {
+          id?: string;
+          titulo?: string | null;
+          imagem_url: string;
+          categoria?: string | null;
+          created_at?: string | null;
+          "Ordem"?: number | null;
+        };
+        Update: Partial<Database["public"]["Tables"]["Frota"]["Insert"]>;
+      };
+      "Quem somos": {
+        Row: {
+          id: string;
+          imagem_url: string | null;
+          [key: string]: unknown;
+        };
+        Insert: { id?: string; imagem_url?: string | null; [key: string]: unknown };
+        Update: Partial<Database["public"]["Tables"]["Quem somos"]["Insert"]>;
+      };
+      leads: {
+        Row: {
+          id: string;
+          nome: string | null;
+          telefone: string | null;
+          email: string | null;
+          mensagem: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          nome?: string | null;
+          telefone?: string | null;
+          email?: string | null;
+          mensagem?: string | null;
+          created_at?: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["leads"]["Insert"]>;
       };
     };
   };
