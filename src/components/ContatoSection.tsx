@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { createClient } from "@/src/lib/supabase/client";
+import type { Database } from "@/src/lib/supabase/types";
 
 export default function ContatoSection() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -24,12 +25,13 @@ export default function ContatoSection() {
 
     try {
       const supabase = createClient();
-      const { error } = await supabase.from("leads").insert({
+      const payload: Database["public"]["Tables"]["leads"]["Insert"] = {
         nome: nome || null,
         telefone: telefone || null,
         email: email || null,
         mensagem: mensagem || null,
-      });
+      };
+      const { error } = await supabase.from("leads").insert(payload);
       if (error) throw error;
       setStatus("success");
       form.reset();
