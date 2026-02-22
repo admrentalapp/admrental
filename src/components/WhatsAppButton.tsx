@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 
-const WHATSAPP_NUMBER = "5511999999999";
+const WHATSAPP_NUMBER = "5531991712206";
 const DEFAULT_MESSAGE = "Olá! Gostaria de solicitar um orçamento de locação de equipamentos.";
 
 export default function WhatsAppButton() {
