@@ -31,7 +31,8 @@ export default function ContatoSection() {
         email: email || null,
         mensagem: mensagem || null,
       };
-      const { error } = await supabase.from("leads").insert(payload);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Supabase client infers 'never' for leads insert in strict build
+      const { error } = await supabase.from("leads").insert(payload as any);
       if (error) throw error;
       setStatus("success");
       form.reset();
