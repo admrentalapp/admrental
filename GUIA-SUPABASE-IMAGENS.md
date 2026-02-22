@@ -57,6 +57,57 @@ Depois do upload:
 https://qbwfyevthmgzrkeqppbc.supabase.co/storage/v1/object/public/equipamentos/grua/foto.jpg
 ```
 
+### 1.4 Campos opcionais para a página de detalhe (estilo Satel)
+
+Ao clicar em um equipamento em **Linha Içamento**, **Linha Caminhões** ou **Linha Amarela**, abre-se uma página de detalhe com especificações. Você pode adicionar as colunas abaixo na tabela **equipamentos** (tipo **text**) e preenchê-las; só aparecem na página quando tiverem valor.
+
+**Comuns (todas as linhas):**
+
+| Coluna              | Exemplo              |
+|---------------------|----------------------|
+| modelo              | CAT 320              |
+| peso                | 22.200 kg            |
+| cabine_ar           | Fechada com A/C      |
+| comprimento_total   | 9.530 mm             |
+| largura_total       | 3.080 mm             |
+| altura_total        | 2.960 mm             |
+
+**Linha Içamento (categoria = linha-icamento):**
+
+| Coluna                   | Exemplo                          |
+|--------------------------|----------------------------------|
+| capacidade_carga_ton     | 45 t                             |
+| alcance_maximo_lanca     | 40 m                             |
+| alcance_horizontal_m     | 35 m                             |
+| altura_maxima_m          | 38 m                             |
+| tipo_equipamento         | Munck (caminhão guindauto)       |
+| tipo_terreno             | Pavimentado                      |
+| peso_carga_icar          | 10 t                             |
+| necessita_patolamento    | Sim / Não                        |
+
+**Linha Amarela (categoria = linha-amarela):**
+
+| Coluna                    | Exemplo           |
+|---------------------------|-------------------|
+| tipo_maquina              | Escavadeira       |
+| peso_operacional_ton      | 20 t              |
+| capacidade_cacamba_m3     | 1,4 m³            |
+| profundidade_escavacao_m  | 6,72 m            |
+| tipo_solo                 | Argila, Rocha     |
+| potencia_motor_hp         | 157 HP            |
+
+**Linha Caminhões (categoria = linha-caminhoes):**
+
+| Coluna                          | Exemplo              |
+|---------------------------------|----------------------|
+| tipo_caminhao                   | Caminhão basculante  |
+| volume_m3                       | 15 m³                |
+| capacidade_carga_ton_caminhao   | 25 t                 |
+| tracao                          | 6x4                  |
+| aplicacao                       | Transporte           |
+
+No Supabase: **Table Editor** → **equipamentos** → **Add column** (nome em snake_case, tipo text).
+
 ---
 
 ## 2. CLIENTES (logos e informações)

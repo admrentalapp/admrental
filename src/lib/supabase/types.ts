@@ -26,6 +26,34 @@ export interface Database {
           ordem?: number;
           created_at?: string;
           updated_at?: string;
+          // Campos comuns (todas as linhas)
+          peso?: string | null;
+          cabine_ar?: string | null;
+          comprimento_total?: string | null;
+          largura_total?: string | null;
+          altura_total?: string | null;
+          // Linha Içamento (guindastes / munck)
+          capacidade_carga_ton?: string | null;
+          alcance_maximo_lanca?: string | null;
+          alcance_horizontal_m?: string | null;
+          altura_maxima_m?: string | null;
+          tipo_equipamento?: string | null;
+          tipo_terreno?: string | null;
+          peso_carga_icar?: string | null;
+          necessita_patolamento?: string | null;
+          // Linha Amarela (terraplenagem)
+          tipo_maquina?: string | null;
+          peso_operacional_ton?: string | null;
+          capacidade_cacamba_m3?: string | null;
+          profundidade_escavacao_m?: string | null;
+          tipo_solo?: string | null;
+          potencia_motor_hp?: string | null;
+          // Linha Caminhões
+          tipo_caminhao?: string | null;
+          volume_m3?: string | null;
+          capacidade_carga_ton_caminhao?: string | null;
+          tracao?: string | null;
+          aplicacao?: string | null;
         };
         Insert: Omit<Database["public"]["Tables"]["equipamentos"]["Row"], "created_at" | "updated_at"> & {
           created_at?: string;

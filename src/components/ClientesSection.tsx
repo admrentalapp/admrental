@@ -63,7 +63,7 @@ export default function ClientesSection({ clientes = [], showTitle = true }: Pro
                       <img
                         src={logoSrc}
                         alt={cliente.nome}
-                        className="max-w-full max-h-full w-auto h-auto object-contain grayscale group-hover:grayscale-0 opacity-80 group-hover:opacity-100 transition-all duration-300 scale-[0.7]"
+                        className="max-w-full max-h-full w-auto h-auto object-contain opacity-90 group-hover:opacity-100 transition-all duration-300 scale-[0.7]"
                       />
                     ) : (
                       <div className="flex items-center justify-center w-full h-full">

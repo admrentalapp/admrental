@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0a;
+  --background: #1a1a1a;
   --foreground: #ededed;
   --adm-red: #dc2626;
   --adm-red-dark: #b91c1c;
   --adm-yellow: #eab308;
   --adm-yellow-light: #facc15;
-  --adm-dark: #0f0f0f;
+  --adm-dark: #1a1a1a;
   --adm-gray: #1a1a1a;
-  --adm-gray-light: #262626;
-  /* Theme-aware (light mode overrides below) */
-  --page-bg: #0a0a0a;
-  --section-bg: #0f0f0f;
+  --adm-gray-light: #1a1a1a;
+  /* Modo escuro: mesma tonalidade em toda a página */
+  --page-bg: #1a1a1a;
+  --section-bg: #1a1a1a;
   --section-bg-alt: #1a1a1a;
   --card-bg: #1a1a1a;
   --text-primary: #ededed;
@@ -59,9 +59,9 @@
   --color-adm-red-dark: #b91c1c;
   --color-adm-yellow: #eab308;
   --color-adm-yellow-light: #facc15;
-  --color-adm-dark: #0f0f0f;
-  --color-adm-gray: #1a1a1a;
-  --color-adm-gray-light: #262626;
+  --color-adm-dark: var(--adm-dark);
+  --color-adm-gray: var(--adm-gray);
+  --color-adm-gray-light: var(--adm-gray-light);
   --color-page-bg: var(--page-bg);
   --color-section-bg: var(--section-bg);
   --color-section-bg-alt: var(--section-bg-alt);
@@ -143,6 +143,7 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 html {

@@ -42,11 +42,11 @@ export default function ContatoSection() {
   }
 
   return (
-    <section id="contato" ref={ref} className="py-20 sm:py-28 bg-section-bg-alt relative overflow-hidden">
-      <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-adm-red/10 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2" />
+    <section id="contato" ref={ref} className="py-12 sm:py-20 lg:py-28 bg-section-bg-alt relative overflow-hidden">
+      <div className="absolute top-1/2 left-0 w-[200px] sm:w-[350px] lg:w-[500px] h-[200px] sm:h-[350px] lg:h-[500px] bg-adm-red/10 rounded-full blur-[80px] sm:blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -55,10 +55,10 @@ export default function ContatoSection() {
             <span className="text-adm-yellow font-semibold text-sm uppercase tracking-wider">
               Contato
             </span>
-            <h2 className="mt-2 text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary">
+            <h2 className="mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-text-primary">
               Entre em Contato
             </h2>
-            <p className="mt-4 text-lg text-text-muted">
+            <p className="mt-3 sm:mt-4 text-base sm:text-lg text-text-muted">
               Solicite um orçamento ou tire dúvidas. Nossa equipe está pronta para atendê-lo.
             </p>
             <div className="mt-10 space-y-6">

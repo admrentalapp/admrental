@@ -52,7 +52,7 @@ export default function VideoSection({ videos = [] }: VideoSectionProps) {
                 whileHover={{ scale: 1.02, y: -5 }}
                 className="group rounded-2xl overflow-hidden bg-card-bg border border-theme-border hover:border-adm-red/30 transition-colors shadow-xl"
               >
-                <div className="aspect-video relative overflow-hidden bg-black">
+                <div className="aspect-video relative overflow-hidden bg-section-bg">
                   <video
                     src={video.video_url}
                     title={video.titulo ?? undefined}

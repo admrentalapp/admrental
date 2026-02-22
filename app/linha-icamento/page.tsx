@@ -59,14 +59,14 @@ export default async function LinhaIcamentoPage() {
                 <Link
                   key={eq.id}
                   href={eq.slug ? `/equipamentos/${eq.slug}` : "/equipamentos"}
-                  className="group bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 hover:shadow-md hover:border-adm-red/30 transition-all duration-300"
+                  className="group bg-card-bg rounded-lg overflow-hidden shadow-sm border border-theme-border hover:shadow-md hover:border-adm-red/30 transition-all duration-300"
                 >
-                  <div className="aspect-square relative bg-gray-100">
+                  <div className="aspect-square relative bg-section-bg-alt">
                     <Image
                       src={eq.imagem_url}
                       alt={eq.nome}
                       fill
-                      className="object-cover group-hover:scale-[1.03] transition-transform duration-300"
+                      className="object-cover group-hover:scale-[1.006] transition-transform duration-300"
                       sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
                       unoptimized
                     />

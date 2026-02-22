@@ -75,18 +75,25 @@ export default function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-adm-dark/95 backdrop-blur-xl border-b border-white/10 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-adm-gray-light/95 backdrop-blur-xl border-b border-white/10 ${
         scrolled ? "shadow-lg shadow-black/20" : ""
       }`}
+      style={{
+        boxShadow: scrolled ? "0 4px 30px -4px rgba(185, 28, 28, 0.15)" : undefined,
+      }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           <Link href="/" className="flex items-center gap-2 group">
-            <motion.span whileHover={{ scale: 1.02 }} className="block">
+            <motion.span
+              whileHover={{ scale: 1.06 }}
+              transition={{ duration: 0.25 }}
+              className="block rounded-lg p-1 transition-shadow duration-300 group-hover:shadow-[0_0_20px_rgba(185,28,28,0.4),0_0_40px_rgba(185,28,28,0.15)]"
+            >
               <img
                 src="https://qbwfyevthmgzrkeqppbc.supabase.co/storage/v1/object/public/equipamentos/6%20-%20Logotipo/Logo%20ADM.png"
                 alt="ADM Rental Service"
-                className="h-[60px] sm:h-[72px] w-auto object-contain"
+                className="h-12 sm:h-[68px] md:h-[84px] w-auto object-contain"
               />
             </motion.span>
           </Link>
@@ -100,7 +107,7 @@ export default function Navbar() {
                   onMouseEnter={() => setOpenSubmenu(link.label)}
                   onMouseLeave={() => setOpenSubmenu(null)}
                 >
-                  <button className="text-white/90 hover:text-adm-yellow transition-colors flex items-center gap-1">
+                  <button className="relative px-3 py-2 rounded-lg text-white/90 font-medium tracking-wide text-[15px] transition-all duration-300 flex items-center gap-1 hover:text-white hover:shadow-[0_0_15px_rgba(185,28,28,0.35),inset_0_0_0_1px_rgba(185,28,28,0.2)]">
                     {link.label}
                     <motion.span
                       animate={{ rotate: openSubmenu === link.label ? 180 : 0 }}
@@ -142,10 +149,11 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="relative text-white/90 hover:text-adm-yellow transition-colors group"
+                  className="relative px-3 py-2 rounded-lg text-white/90 font-medium tracking-wide text-[15px] transition-all duration-300 group hover:text-white hover:shadow-[0_0_15px_rgba(185,28,28,0.35),inset_0_0_0_1px_rgba(185,28,28,0.2)]"
                 >
                   {link.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-adm-yellow group-hover:w-full transition-all duration-300" />
+                  <span className="absolute inset-0 rounded-lg border border-transparent group-hover:border-adm-red/40 transition-all duration-300" />
+                  <span className="absolute -bottom-0.5 left-3 right-3 h-px bg-gradient-to-r from-transparent via-adm-red/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </Link>
               )
             )}
@@ -157,9 +165,9 @@ export default function Navbar() {
 
           <motion.button
             whileTap={{ scale: 0.95 }}
-            className="md:hidden p-2 text-white"
+            className="md:hidden min-h-[44px] min-w-[44px] flex items-center justify-center p-3 text-white touch-manipulation"
             onClick={() => setIsOpen(!isOpen)}
-            aria-label="Menu"
+            aria-label="Abrir menu"
           >
             <div className="w-6 h-5 flex flex-col justify-between">
               <motion.span
@@ -202,7 +210,7 @@ export default function Navbar() {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="md:hidden fixed inset-y-0 right-0 z-[101] w-[min(320px,85vw)] flex flex-col bg-adm-dark border-l border-adm-red/30 shadow-2xl"
+                className="md:hidden fixed inset-y-0 right-0 z-[101] w-[min(320px,85vw)] flex flex-col bg-page-bg border-l border-adm-red/30 shadow-2xl"
               >
                 {/* Drawer header */}
                 <div className="flex items-center justify-between p-5 border-b border-white/10">
@@ -234,7 +242,7 @@ export default function Navbar() {
                         <motion.li key={link.label} variants={itemVariants} className="border-b border-white/5">
                           <button
                             onClick={() => setOpenSubmenu(openSubmenu === link.label ? null : link.label)}
-                            className="flex items-center justify-between w-full py-4 px-4 text-left text-white/90 hover:text-adm-yellow transition-colors rounded-lg hover:bg-white/5"
+                            className="flex items-center justify-between w-full min-h-[48px] py-4 px-4 text-left text-white/90 hover:text-adm-yellow transition-colors rounded-lg hover:bg-white/5 touch-manipulation"
                           >
                             <span className="font-medium">{link.label}</span>
                             <motion.span
@@ -261,11 +269,11 @@ export default function Navbar() {
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: j * 0.05 }}
                                   >
-                                    <Link
-                                      href={sub.href}
-                                      className="block py-3 px-4 text-white/70 hover:text-adm-yellow rounded-lg hover:bg-adm-red/10 transition-colors text-sm"
-                                      onClick={() => setIsOpen(false)}
-                                    >
+<Link
+                            href={sub.href}
+                            className="block py-3.5 px-4 min-h-[44px] flex items-center text-white/70 hover:text-adm-yellow rounded-lg hover:bg-adm-red/10 transition-colors text-sm touch-manipulation"
+                            onClick={() => setIsOpen(false)}
+                          >
                                       {sub.label}
                                     </Link>
                                   </motion.li>
@@ -278,7 +286,7 @@ export default function Navbar() {
                         <motion.li key={link.href} variants={itemVariants}>
                           <Link
                             href={link.href}
-                            className="block py-4 px-4 text-white/90 hover:text-adm-yellow rounded-lg hover:bg-white/5 transition-colors font-medium"
+                            className="block py-4 px-4 min-h-[48px] flex items-center text-white/90 hover:text-adm-yellow rounded-lg hover:bg-white/5 transition-colors font-medium touch-manipulation"
                             onClick={() => setIsOpen(false)}
                           >
                             {link.label}

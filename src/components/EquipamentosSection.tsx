@@ -110,9 +110,9 @@ export default function EquipamentosSection({ imagemLinhaIcamento, imagemLinhaCa
               <Link href={equip.href}>
                 <motion.article
                   whileHover={{ y: -4, scale: 1.01 }}
-                  className="group h-full bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100"
+                  className="group h-full bg-card-bg rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-theme-border"
                 >
-                  <div className="aspect-video relative overflow-hidden bg-gray-100">
+                  <div className="aspect-video relative overflow-hidden bg-section-bg-alt">
                     {showImagem ? (
                       <Image
                         src={imagemUrl}

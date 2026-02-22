@@ -39,10 +39,10 @@ export default function Hero({
   imageAlt = "Equipamentos ADM Rental",
 }: HeroProps) {
   return (
-    <section className="relative min-h-[90svh] flex items-center justify-center overflow-visible pt-16 sm:pt-20">
-      {/* Animated gradient orbs */}
+    <section className="relative min-h-[75svh] sm:min-h-[80svh] lg:min-h-[90svh] flex items-center justify-center overflow-hidden pt-20 pb-8 sm:pt-24 sm:pb-12 lg:pt-20 lg:pb-0">
+      {/* Animated gradient orbs - menores no mobile para não vazarem */}
       <motion.div
-        className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-adm-red/20 rounded-full blur-[120px]"
+        className="absolute top-1/4 left-1/4 w-[200px] h-[200px] sm:w-[350px] sm:h-[350px] lg:w-[500px] lg:h-[500px] bg-adm-red/20 rounded-full blur-[80px] sm:blur-[100px] lg:blur-[120px]"
         animate={{
           scale: [1, 1.2, 1],
           opacity: [0.3, 0.5, 0.3],
@@ -50,7 +50,7 @@ export default function Hero({
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-adm-yellow/15 rounded-full blur-[100px]"
+        className="absolute bottom-1/4 right-1/4 w-[150px] h-[150px] sm:w-[280px] sm:h-[280px] lg:w-[400px] lg:h-[400px] bg-adm-yellow/15 rounded-full blur-[60px] sm:blur-[80px] lg:blur-[100px]"
         animate={{
           scale: [1.2, 1, 1.2],
           opacity: [0.2, 0.4, 0.2],
@@ -58,7 +58,7 @@ export default function Hero({
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute top-1/2 left-1/2 w-[300px] h-[300px] bg-adm-red/10 rounded-full blur-[80px] -translate-x-1/2 -translate-y-1/2"
+        className="absolute top-1/2 left-1/2 w-[120px] h-[120px] sm:w-[200px] sm:h-[200px] lg:w-[300px] lg:h-[300px] bg-adm-red/10 rounded-full blur-[50px] sm:blur-[80px] -translate-x-1/2 -translate-y-1/2"
         animate={float}
       />
 
@@ -72,10 +72,10 @@ export default function Hero({
         }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          {/* Coluna esquerda - texto alinhado à esquerda */}
-          <div className="text-left">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
+          {/* Coluna esquerda - texto e botões; no mobile fica acima da imagem (order-1) */}
+          <div className="text-left order-1">
             <motion.span
               custom={0}
               variants={fadeUp}
@@ -91,7 +91,7 @@ export default function Hero({
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-text-primary leading-[1.2] mb-4"
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-text-primary leading-[1.2] mb-4"
             >
               <span className="bg-gradient-to-r from-text-primary via-text-primary to-text-muted-strong bg-clip-text text-transparent">
                 {title}
@@ -104,7 +104,7 @@ export default function Hero({
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="space-y-2 mb-8 text-sm text-text-muted-strong"
+              className="space-y-1.5 sm:space-y-2 mb-6 sm:mb-8 text-xs sm:text-sm text-text-muted-strong"
             >
               {[
                 "Mais de 10 anos no mercado",
@@ -154,18 +154,17 @@ export default function Hero({
             )}
           </div>
 
-          {/* Coluna direita - imagem (escala 1.4x) */}
+          {/* Coluna direita - imagem; no mobile fica por baixo dos botões (order-2) */}
           <motion.div
             custom={2}
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="relative flex items-center justify-center min-h-[280px] lg:min-h-[360px] overflow-visible"
+            className="relative flex items-center justify-center min-h-[200px] sm:min-h-[260px] lg:min-h-[360px] overflow-hidden lg:overflow-visible w-full order-2"
           >
             {imageSrc ? (
               <div
-                className="relative w-full max-w-[38.4rem] aspect-[4/3] min-h-[280px] origin-center"
-                style={{ transform: "scale(1.4)" }}
+                className="relative w-full max-w-[38.4rem] aspect-[4/3] min-h-[200px] sm:min-h-[260px] lg:min-h-[280px] origin-center scale-[1.15] sm:scale-[1.35] lg:scale-[1.61]"
               >
                 <Image
                   src={imageSrc}

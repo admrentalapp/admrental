@@ -17,7 +17,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#0f0f0f",
+  themeColor: "#1a1a1a",
 };
 
 export const metadata: Metadata = {
@@ -88,7 +88,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-page-bg text-text-primary`}
       >
         <script
           dangerouslySetInnerHTML={{
